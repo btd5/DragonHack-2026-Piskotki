@@ -35,8 +35,8 @@ from flask_cors import CORS
 # -------------------------
 # KONFIG
 # -------------------------
-CLASS_NAMES        = ["srce", "oval", "trikotnik", "lunica", "kvadrat", "prazno"]
-CLASS_NAMES        = ["kvadrat", "oval", "lunica", "srce", "trikotnik", "prazno"]
+
+CLASS_NAMES        = ["kvadrat", "lunica", "oval", "srce", "trikotnik", "prazno"]
 
 MODEL_PATH         = "model_unquant.tflite"
 CLASSIFY_INTERVAL  = 1.0
@@ -54,7 +54,7 @@ SHAPE_TO_NUMBER = {
     "lunica": 2,
     "oval": 3,
     "srce": 4,
-    "trikotnik": 5,
+    "trikotnik": 0,
     "prazno": 6
 }
 
