@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Piškot Klasifikator — Tovarna Domačica</title>
+<title>Domačica Sort</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=DM+Serif+Display&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -159,7 +159,7 @@ body::after {
 
   /* ---------- MAIN ---------- */
   main {
-    max-width: 1320px;
+    max-width: 1480px;
     margin: 0 auto;
     padding: 30px 48px 60px;
     display: grid;
@@ -359,6 +359,160 @@ body::after {
 
   @keyframes blink {
     50% { opacity: 0.2; }
+  }
+
+  /* ---------- SERIAL KONTROLE (ESP-32) ---------- */
+  .serial-controls {
+    margin-top: 14px;
+    padding: 12px 14px;
+    border: 1px dashed var(--line);
+    background: rgba(250, 240, 216, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .serial-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .serial-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: transparent;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    padding: 7px 14px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .serial-btn:hover:not(:disabled) {
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  .serial-btn.connect {
+    border-color: var(--olive);
+    color: var(--olive);
+  }
+  .serial-btn.connect:hover:not(:disabled) {
+    background: var(--olive);
+    color: var(--cream);
+  }
+
+  .serial-btn.disconnect {
+    border-color: var(--burgundy);
+    color: var(--burgundy);
+  }
+  .serial-btn.disconnect:hover:not(:disabled) {
+    background: var(--burgundy);
+    color: var(--cream);
+  }
+
+  .serial-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  .serial-status {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+  }
+
+  .serial-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--ink-soft);
+    flex-shrink: 0;
+    transition: all 0.3s;
+  }
+  .serial-dot.connected {
+    background: var(--olive);
+    box-shadow: 0 0 6px rgba(106, 100, 50, 0.5);
+    animation: blink 2s infinite;
+  }
+  .serial-dot.error {
+    background: var(--burgundy);
+    box-shadow: 0 0 6px rgba(139, 42, 26, 0.5);
+  }
+
+  .serial-baud {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    padding: 6px 8px;
+    cursor: pointer;
+    outline: none;
+  }
+  .serial-baud:hover, .serial-baud:focus {
+    border-color: var(--ink);
+  }
+  .serial-baud:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .serial-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .serial-stat {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 6px 8px;
+    text-align: center;
+  }
+  .serial-stat b {
+    display: block;
+    font-size: 14px;
+    color: var(--ink);
+    font-weight: 600;
+    margin-top: 2px;
+    font-style: normal;
+  }
+
+  .serial-warn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--burgundy);
+    padding: 6px 8px;
+    border: 1px solid var(--burgundy);
+    background: rgba(139, 42, 26, 0.06);
+    display: none;
+  }
+  .serial-warn.show { display: block; }
+
+  /* slika iz ESP-32 naj se obnaša kot desni stream */
+  #leftStream {
+    display: none;
+  }
+  #leftStream.live {
+    display: block;
   }
 
   /* signature pod stream */
@@ -579,22 +733,9 @@ body::after {
 <body>
 
 <header>
-  <div class="topstrip">
-    <div class="left">
-      <span>№ 042 — serija A</span>
-      <span>letnik 2026</span>
-    </div>
-    <div class="right">
-      <span><span class="dot"></span>naprava aktivna</span>
-      <span id="clock">—</span>
-    </div>
-  </div>
-
-  <div class="rule"></div>
-
   <div class="masthead">
-    <div class="kicker">tovarna · od leta 1957</div>
-    <h1>Piškot <em>Klasifikator</em></h1>
+    <div class="kicker"> since 2026</div>
+    <h1>Domačica <em>Sort</em></h1>
     <div class="tagline">ročno izbrano, strojno preverjeno</div>
   </div>
 
@@ -623,12 +764,39 @@ body::after {
 
       <div class="stream-frame">
         <div class="stream">
+          <img id="leftStream" alt="" />
           <div class="placeholder" id="leftPlaceholder">
             <div class="sym">—</div>
             <div>esp-32 ni povezan</div>
             <div class="blink">čakanje na serial</div>
           </div>
         </div>
+      </div>
+
+      <div class="serial-controls">
+        <div class="serial-warn" id="serialUnsupported">
+          brskalnik ne podpira web-serial · uporabi chrome ali edge
+        </div>
+
+        <div class="serial-row">
+          <button class="serial-btn connect" id="serialConnectBtn">poveži</button>
+          <button class="serial-btn disconnect" id="serialDisconnectBtn" disabled>prekini</button>
+          <select class="serial-baud" id="serialBaud">
+            <option value="9600">9600</option>
+            <option value="19200">19200</option>
+            <option value="38400">38400</option>
+            <option value="57600">57600</option>
+            <option value="115200" selected>115200</option>
+            <option value="230400">230400</option>
+            <option value="460800">460800</option>
+            <option value="921600">921600</option>
+          </select>
+          <div class="serial-status">
+            <span class="serial-dot" id="serialDot"></span>
+            <span id="serialStatus">prekinjeno</span>
+          </div>
+        </div>
+
       </div>
 
       <div class="cam-sig">
@@ -837,8 +1005,8 @@ document.addEventListener("keydown", (e) => {
 
 /* ura */
 function updateClock() {
-  document.getElementById("clock").textContent =
-    new Date().toLocaleTimeString("sl-SI");
+  const el = document.getElementById("clock");
+  if (el) el.textContent = new Date().toLocaleTimeString("sl-SI");
 }
 updateClock();
 setInterval(updateClock, 1000);
@@ -849,10 +1017,245 @@ setTimeout(() => {
   if (state.right.label === "—") {
     setClass("right", "domačica", 0.923);
   }
-  if (state.left.label === "—") {
-    setClass("left", "medenjak", 0.847);
-  }
+  /* levo stran sedaj polni Web Serial (glej spodaj) */
 }, 1500);
+
+/* ================================================================
+   WEB SERIAL — ESP-32 (Linija A)
+   Logika je povzeta po serial2.html:
+   ESP-32 preko serial-a pošilja vrstice:
+     "Predictions: <label>"       -> napiše se v leftClass
+     "Image data: <hex>"          -> zrisana slika v leftStream (JPEG)
+================================================================ */
+(function initSerial() {
+  // DOM reference
+  const connectBtn    = document.getElementById('serialConnectBtn');
+  const disconnectBtn = document.getElementById('serialDisconnectBtn');
+  const baudSelect    = document.getElementById('serialBaud');
+  const statusDot     = document.getElementById('serialDot');
+  const statusText    = document.getElementById('serialStatus');
+  const warnEl        = document.getElementById('serialUnsupported');
+  const leftImg       = document.getElementById('leftStream');
+  const leftPh        = document.getElementById('leftPlaceholder');
+
+  // preveri podporo — in diagnosticiraj vzrok
+  if (!('serial' in navigator)) {
+    let reason;
+    if (!window.isSecureContext) {
+      // najpogostejši problem: dostopaš preko http://<IP>:8000 iz drugega računalnika
+      reason = 'web-serial zahteva varno povezavo · odpri stran preko '
+             + 'http://localhost:' + (location.port || '8000')
+             + ' ali https · trenutni URL: ' + location.origin;
+    } else if (location.protocol === 'file:') {
+      reason = 'web-serial ne dela s file:// · odpri stran preko http://localhost:8000';
+    } else if (!/Chrome|Edg|Opera|OPR/.test(navigator.userAgent)) {
+      reason = 'brskalnik ne podpira web-serial · uporabi chrome ali edge';
+    } else {
+      // Chrome je, secure context je, a serial še vedno manjka
+      reason = 'web-serial ni na voljo · preveri chrome://flags ali posodobi brskalnik';
+    }
+    warnEl.textContent = reason;
+    warnEl.classList.add('show');
+    connectBtn.disabled = true;
+    baudSelect.disabled = true;
+    console.warn('[serial] API ni na voljo:', {
+      isSecureContext: window.isSecureContext,
+      protocol: location.protocol,
+      host: location.host,
+      userAgent: navigator.userAgent
+    });
+    return;
+  }
+
+  // stanje
+  let port = null;
+  let reader = null;
+  let readLoopActive = false;
+  let currentObjectUrl = null;
+  const stats = { frames: 0, lines: 0, errors: 0 };
+
+  // zadnja napoved iz ESP-32 (da vemo ali se je kaj spremenilo)
+  let lastLeftLabel = null;
+
+  function updateStats() {
+    // stats se hranijo interno (console, debug), ampak jih ne prikazujemo več v UI
+  }
+
+  function setConnected(connected) {
+    connectBtn.disabled    = connected;
+    disconnectBtn.disabled = !connected;
+    baudSelect.disabled    = connected;
+    statusDot.classList.remove('connected', 'error');
+    if (connected) {
+      statusDot.classList.add('connected');
+      statusText.textContent = 'povezano';
+    } else {
+      statusText.textContent = 'prekinjeno';
+    }
+  }
+
+  function setError() {
+    statusDot.classList.remove('connected');
+    statusDot.classList.add('error');
+    statusText.textContent = 'napaka';
+  }
+
+  // ── povezava ────────────────────────────────────────────────────
+  connectBtn.addEventListener('click', async () => {
+    try {
+      port = await navigator.serial.requestPort();
+      await port.open({ baudRate: parseInt(baudSelect.value, 10) });
+      setConnected(true);
+      readLoop();
+    } catch (err) {
+      console.warn('[serial] connect failed:', err);
+      stats.errors++; updateStats();
+      setError();
+    }
+  });
+
+  disconnectBtn.addEventListener('click', async () => {
+    readLoopActive = false;
+    try { if (reader) { await reader.cancel(); reader = null; } } catch {}
+    try { if (port)   { await port.close();    port = null;   } } catch {}
+    setConnected(false);
+  });
+
+  // ── read loop ───────────────────────────────────────────────────
+  async function readLoop() {
+    readLoopActive = true;
+    const decoder = new TextDecoderStream();
+    port.readable.pipeTo(decoder.writable).catch(() => {});
+    reader = decoder.readable.getReader();
+
+    let lineBuffer = '';
+    try {
+      while (readLoopActive) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        if (!value) continue;
+        lineBuffer += value;
+
+        let idx;
+        while ((idx = lineBuffer.indexOf('\n')) !== -1) {
+          const line = lineBuffer.slice(0, idx).replace(/\r$/, '');
+          lineBuffer = lineBuffer.slice(idx + 1);
+          stats.lines++;
+          handleLine(line);
+        }
+        updateStats();
+      }
+    } catch (err) {
+      if (readLoopActive) {
+        console.warn('[serial] read error:', err);
+        stats.errors++; updateStats();
+        setError();
+        setConnected(false);
+      }
+    }
+  }
+
+  // ── vrstice ─────────────────────────────────────────────────────
+  const IMAGE_PREFIX = 'Image data:';
+  const PRED_PREFIX  = 'Predictions';
+
+  function handleLine(line) {
+    if (line.startsWith(IMAGE_PREFIX)) {
+      const hexStr = line.slice(IMAGE_PREFIX.length).trim();
+      renderImage(hexStr);
+    } else if (line.startsWith(PRED_PREFIX)) {
+      // pričakovana oblika: "Predictions: background: 95 kvadrat: 2 lunica: 1 oval: 0 srce: 0 trikotnik: 2"
+      // parse: poišči vse pare "label: število", vzemi najvišjega
+      let rest = line.slice(PRED_PREFIX.length);
+      const colon = rest.indexOf(':');
+      if (colon !== -1) rest = rest.slice(colon + 1);
+      rest = rest.trim();
+
+      // regex najde pare: beseda (lahko z šumniki), presledek/dvopičje, število
+      const pairs = [...rest.matchAll(/([A-Za-zČčŠšŽžĆćĐđ_]+)\s*[:=]?\s*(-?\d+(?:\.\d+)?)/g)];
+
+      if (pairs.length === 0) {
+        // fallback: če ni parov, pošlji ves string kot label (kot prej)
+        const label = rest;
+        if (label && label !== lastLeftLabel) {
+          lastLeftLabel = label;
+          setClass('left', label, 1.0);
+        }
+        return;
+      }
+
+      // najdi največjo vrednost
+      let best = pairs[0];
+      let sum = 0;
+      for (const p of pairs) {
+        const v = parseFloat(p[2]);
+        sum += v;
+        if (v > parseFloat(best[2])) best = p;
+      }
+
+      const label = best[1];
+      const value = parseFloat(best[2]);
+      // normalizirana confidence (0-1); če vsota 0, padec na 0
+      const conf = sum > 0 ? value / sum : 0;
+
+      if (label !== lastLeftLabel || Math.abs((state.left.conf || 0) - conf) > 0.01) {
+        lastLeftLabel = label;
+        setClass('left', label, conf);
+      }
+    }
+    // ostale vrstice (debug, napake iz ESP-32) samo ignoriramo
+  }
+
+  // ── JPEG iz hex ─────────────────────────────────────────────────
+  function renderImage(hexStr) {
+    try {
+      const cleaned = hexStr.replace(/\s+/g, '');
+      if (cleaned.length === 0)     throw new Error('prazen hex string');
+      if (cleaned.length % 2 !== 0) throw new Error('liho število hex znakov');
+
+      const bytes = new Uint8Array(cleaned.length / 2);
+      for (let i = 0; i < bytes.length; i++) {
+        const byte = parseInt(cleaned.slice(i * 2, i * 2 + 2), 16);
+        if (isNaN(byte)) throw new Error('neveljaven hex na ' + (i * 2));
+        bytes[i] = byte;
+      }
+
+      if (bytes[0] !== 0xFF || bytes[1] !== 0xD8) {
+        // manjka JPEG magic — samo opozorilo, vseeno poskusimo
+        console.warn('[serial] manjkajo JPEG magic bytes');
+      }
+
+      if (currentObjectUrl) URL.revokeObjectURL(currentObjectUrl);
+      const blob = new Blob([bytes], { type: 'image/jpeg' });
+      currentObjectUrl = URL.createObjectURL(blob);
+
+      leftImg.onload = () => {
+        stats.frames++; updateStats();
+        leftImg.classList.add('live');
+        if (leftPh) leftPh.style.display = 'none';
+      };
+      leftImg.onerror = () => {
+        stats.errors++; updateStats();
+        console.warn('[serial] ne morem dekodirati JPEG');
+      };
+      leftImg.src = currentObjectUrl;
+    } catch (err) {
+      stats.errors++; updateStats();
+      console.warn('[serial] image parse error:', err.message);
+    }
+  }
+
+  // ── auto-reconnect (opcijsko, če se port sam odklopi) ───────────
+  navigator.serial.addEventListener('disconnect', (e) => {
+    if (port && e.target === port) {
+      readLoopActive = false;
+      try { if (reader) reader.cancel(); } catch {}
+      port = null;
+      reader = null;
+      setConnected(false);
+    }
+  });
+})();
 </script>
 </body>
 </html>
