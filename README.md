@@ -15,7 +15,7 @@ Our architecture utilizes a Multi-Tiered Inference Pipeline to ensure the integr
 * Budget/Scale Tier: For mass deployment, the system is fully optimized for TinyML on an ESP32-CAM (3€). This demonstrates a cost-efficient Bare-Metal AI solution that can be deployed at scale even in the most resource-constrained environments. 
 
 The recognition models was trained using Teachable Machine, Edge Impulse and Digital Ocean AI GPU droplets.
-Both camera send their pictures and recognised shape to a website for user to see what is going on. Aditionally the recognised shape is sent to a ESP32 that moves the cookies into the right bin.
+Both camera send their pictures and recognised shape to a website for user to see what is going on, hosted by Digital Ocean. Aditionally the recognised shape is sent to a ESP32 that moves the cookies into the right bin.
 
 ## Why This Matters for National Security
 
