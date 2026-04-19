@@ -14,7 +14,7 @@ static constexpr int SWEEP_DELAY_MS = 15;
 
 Servo testServo;
 
-void setup() {
+void char_setup() {
   Serial.begin(115200);
   delay(500);
 
@@ -29,7 +29,7 @@ void setup() {
   Serial.println("");
 }
 
-void loop() {
+void char_loop() {
   // Sweep up in 50 µs increments
   for (int us = SERVO_MIN_US; us <= SERVO_MAX_US; us += 50) {
     testServo.writeMicroseconds(us);
