@@ -2,9 +2,9 @@
 
 This is the third consecutive year for team Piškotki. After two years of solving "minor" issues like STEM education and assisting the blind, we realized those goals were simply not ambitious enough for our caliber. It is time to pivot toward the ultimate pillar of societal stability: Segregation of Domaćica Piškotki, so we can eat just the best (Square, if you don't agree fight me).
 
-# The Domaćica Sorter
+# The DomacicaSort
 
-We have engineered a state-of-the-art sorting ecosystem that leverages Hyper-Distributed Edge Intelligence to categorize the various shapes of Domaćica cookies.
+We have engineered a state-of-the-art sorting ecosystem that leverages Hyper-Distributed Edge Intelligence to categorize the various shapes of Domaćica cookies. It surpasses regular sorting algorithms like QuickSort and BogoSort by transcending virtual environment and sorting in physical plane. It sorts what really matters, not numbers and texts, but Domaćica cookies.
 
 ## Tech Stack & Embedded Innovation
 
@@ -12,7 +12,10 @@ Our architecture utilizes a Multi-Tiered Inference Pipeline to ensure the integr
 
 * Elite Tier: A high-performance Luxonis Spatial AI camera serves as the primary node, utilizing it's powerful integrated processor for complex shape validation and anomaly detection.
 
-* Budget/Scale Tier: For mass deployment, the system is fully optimized for TinyML on an ESP32-CAM (3€). This demonstrates a cost-efficient Bare-Metal AI solution that can be deployed at scale even in the most resource-constrained environments.
+* Budget/Scale Tier: For mass deployment, the system is fully optimized for TinyML on an ESP32-CAM (3€). This demonstrates a cost-efficient Bare-Metal AI solution that can be deployed at scale even in the most resource-constrained environments. 
+
+The recognition models was trained using Teachable Machine, Edge Impulse and Digital Ocean AI GPU droplets.
+Both camera send their pictures and recognised shape to a website for user to see what is going on. Aditionally the recognised shape is sent to a ESP32 that moves the cookies into the right bin.
 
 ## Why This Matters for National Security
 
