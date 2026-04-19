@@ -10,9 +10,9 @@ We have engineered a state-of-the-art sorting ecosystem that leverages Hyper-Dis
 
 Our architecture utilizes a Multi-Tiered Inference Pipeline to ensure the integrity of the sorting process:
 
-    Elite Tier: A high-performance Luxonis Spatial AI camera serves as the primary node, utilizing it's powerful integrated processor for complex shape validation and anomaly detection.
+* Elite Tier: A high-performance Luxonis Spatial AI camera serves as the primary node, utilizing it's powerful integrated processor for complex shape validation and anomaly detection.
 
-    Budget/Scale Tier: For mass deployment, the system is fully optimized for TinyML on an ESP32-CAM (3€). This demonstrates a cost-efficient Bare-Metal AI solution that can be deployed at scale even in the most resource-constrained environments.
+* Budget/Scale Tier: For mass deployment, the system is fully optimized for TinyML on an ESP32-CAM (3€). This demonstrates a cost-efficient Bare-Metal AI solution that can be deployed at scale even in the most resource-constrained environments.
 
 ## Why This Matters for National Security
 
@@ -24,8 +24,8 @@ This is "Air-Gapped" cookie sorting. If the global internet backbone fails tomor
 
 The Domaćica Sorter is not just a machine; it is a Modular Defense Framework.
 
-    Phase 2: Integration of a Counterfeit Detection Engine to distinguish between the original Kraš Domaćica and "imposter" store-brand variants (e.g., Mercator), protecting our national intellectual property.
+* Phase 2: Integration of a Counterfeit Detection Engine to distinguish between the original Kraš Domaćica and "imposter" store-brand variants (e.g., Mercator), protecting our national intellectual property.
 
-    Phase 3: To prove the system’s Cross-Domain Scalability, we are benchmarking the model for the identification and classification of Dinosaur Nuggets. If our AI can differentiate a T-Rex from a Pterodactyl in a high-speed fry-stream, it can handle any tactical logistical challenge known to man.
+* Phase 3: To prove the system’s Cross-Domain Scalability, we are benchmarking the model for the identification and classification of Dinosaur Nuggets. If our AI can differentiate a T-Rex from a Pterodactyl in a high-speed fry-stream, it can handle any tactical logistical challenge known to man.
 
 # Piškotki: Sorting the future, one chocolate-covered square (or triangle) at a time.
